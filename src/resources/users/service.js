@@ -5,6 +5,7 @@ const {
   createUser,
   removeUserById
 } = require('./memory.repository');
+const { updateTasks } = require('../tasks/service');
 
 const getAll = async () => getAllUsers && await getAllUsers() || null;
 
@@ -14,6 +15,9 @@ const update = async (userId, payload) => updateUserInfo && await updateUserInfo
 
 const create = async payload => createUser && await createUser(payload) || null;
 
-const remove = async userId => removeUserById && await removeUserById(userId) || null;
+const remove = async userId => {
+  await updateTasks(userId);
+  return removeUserById && await removeUserById(userId) || null;
+};
 
 module.exports = { getAll, getById, update, create, remove };

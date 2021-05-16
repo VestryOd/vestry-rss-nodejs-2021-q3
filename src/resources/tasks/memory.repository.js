@@ -22,7 +22,7 @@ const createTask = async payload => {
   return Promise.resolve({ ...task });
 };
 
-const updateTaskInfo = async (taskId, payload) => {
+const updateTaskInfo = async (taskId, boardId, payload) => {
   const indexOfTask = tasksDocument.findIndex(el => el.id === taskId);
   if (indexOfTask === -1) return null;
   const updatedTask = {
