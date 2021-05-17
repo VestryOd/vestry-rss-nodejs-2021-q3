@@ -20,7 +20,7 @@ const remove = async boardId => {
   if (!cleared.length) {
     return deleteById(boardId);
   }
-  return true;
+  return boardId;
 };
 
 module.exports = {

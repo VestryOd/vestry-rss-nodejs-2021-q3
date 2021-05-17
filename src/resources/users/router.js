@@ -9,8 +9,8 @@ router
       catchErrors(async (req, res, next) => {
         const users = await usersService.getAll();
         if (!users) return next(new CustomError({ status: 400, message: 'Bad request' }));
-        await res.status(200).json(users.map(User.toResponse));
-        return true;
+        return res.status(200).json(users.map(User.toResponse));
+        // return true;
       })
     )
     .post(
@@ -24,8 +24,8 @@ router
           })
         );
       }
-      await res.status(201).json(User.toResponse(user));
-      return true;
+      return res.status(201).json(User.toResponse(user));
+      // return true;
     })
     );
 
@@ -42,8 +42,8 @@ router
             })
           );
       }
-      await res.status(200).json(User.toResponse(user));
-      return true;
+      return res.status(200).json(User.toResponse(user));
+      // return true;
     })
     )
   .put(
@@ -61,8 +61,8 @@ router
           })
         );
     }
-    await res.status(200).json(User.toResponse(user));
-    return true;
+    return res.status(200).json(User.toResponse(user));
+    // return true;
     })
     )
   .delete(
@@ -76,8 +76,8 @@ router
         })
       );
     }
-    await res.status(200).json(User.toResponse(message));
-    return true;
+    return res.status(200).json(User.toResponse(message));
+    // return true;
   })
   );
 

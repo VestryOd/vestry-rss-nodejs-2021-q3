@@ -1,10 +1,12 @@
 const usersDocument = require('../../common/local-db/users');
 const User = require('./model');
 
-const getAllUsers = async () => Promise.resolve([...usersDocument]);
+const DB = [...usersDocument];
+
+const getAllUsers = async () => Promise.resolve(DB);
 
 const getUserById = async userId => {
-  const result = usersDocument.find(user => user.id === userId);
+  const result = DB.find(user => user.id === userId);
   if (!result) {
     return null;
   }
@@ -12,28 +14,28 @@ const getUserById = async userId => {
 };
 
 const updateUserInfo = async ({ userId, payload }) => {
-  const indexOfUser = usersDocument.findIndex(el => el.id === userId);
+  const indexOfUser = DB.findIndex(el => el.id === userId);
   if (indexOfUser === -1) return null;
   const updatedUser = {
-    ...usersDocument[indexOfUser],
+    ...DB[indexOfUser],
     ...payload
   };
-  usersDocument[indexOfUser] = updatedUser;
+  DB[indexOfUser] = updatedUser;
   return Promise.resolve({ ...updatedUser });
 };
 
 const createUser = async payload => {
   const user = new User(payload);
-  usersDocument.push(user);
+  DB.push(user);
   return Promise.resolve(User.toResponse(user));
 };
 
 const removeUserById = async userId => {
-  const indexOfUser = usersDocument.findIndex(el => el.id === userId);
-  const user = usersDocument[indexOfUser];
+  const indexOfUser = DB.findIndex(el => el.id === userId);
+  const user = DB[indexOfUser];
   let deleted = null;
   if (indexOfUser && Object.keys(user).length) {
-    deleted = usersDocument.splice(indexOfUser, 1);
+    deleted = DB.splice(indexOfUser, 1);
   }
   return !deleted || !deleted?.length
     ? null

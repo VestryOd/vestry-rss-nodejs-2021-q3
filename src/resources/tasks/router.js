@@ -10,8 +10,8 @@ router
       if (!tasks) {
         return next(new CustomError({ status: 400, message: 'Bad request' }));
       }
-      await res.status(200).json(tasks);
-      return true;
+      return res.status(200).json(tasks);
+      // return true;
     })
   )
   .post(
@@ -24,8 +24,8 @@ router
         })
       );
       }
-      await res.status(201).json(task);
-      return true;
+      return res.status(201).json(task);
+      // return true;
     })
   );
 
@@ -42,8 +42,8 @@ router
           })
         );
       }
-      await res.status(200).json(task);
-      return true;
+      return res.status(200).json(task);
+      // return true;
     })
   )
   .put(
@@ -58,8 +58,8 @@ router
           })
         );
       }
-      await res.status(200).json(task);
-      return true;
+      return res.status(200).json(task);
+      // return true;
     })
   )
   .delete(
@@ -73,8 +73,8 @@ router
           })
         );
       }
-      await res.status(200).json(message);
-      return true;
+      return res.status(200).json(message);
+      // return true;
     })
   );
 

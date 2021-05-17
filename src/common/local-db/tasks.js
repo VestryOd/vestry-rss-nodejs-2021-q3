@@ -1,4 +1,4 @@
-let tasksDocument = [
+const tasksDocument = [
   {
     id: '822d5b25-3351-4450-8b99-f0e3f04b7377',
     title: 'The quick, brown fox jumps over a lazy dog.',
@@ -298,11 +298,6 @@ let tasksDocument = [
   }
 ];
 
-const updateTasksDocument = arr => {
-  tasksDocument = arr;
-};
-
 module.exports = {
   tasksDocument,
-  updateTasksDocument
 };

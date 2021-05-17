@@ -11,8 +11,8 @@ router
       if (!boards) {
         return next(new CustomError({ status: 400, message: 'Bad request' }));
       }
-      await res.status(200).json(boards);
-      return true;
+      return res.status(200).json(boards);
+      // return true;
     })
   )
   .post(
@@ -26,8 +26,8 @@ router
           })
         );
       }
-      await res.status(201).json(board);
-      return true;
+      return res.status(201).json(board);
+      // return true;
     })
   );
 
@@ -44,8 +44,8 @@ router
           })
         );
       }
-      await res.status(200).json(board);
-      return true;
+      return res.status(200).json(board);
+      // return true;
     })
   )
   .put(
@@ -60,8 +60,8 @@ router
           })
         );
       }
-      await res.status(200).json(board);
-      return true;
+      return  res.status(200).json(board);
+      // return true;
     })
   )
   .delete(
@@ -75,8 +75,8 @@ router
           })
         );
       }
-      await res.status(200).json(message);
-      return true;
+      return res.status(200).json(message);
+      // return true;
     })
   );
 

@@ -1,48 +1,52 @@
-const { tasksDocument, updateTasksDocument } = require('../../common/local-db/tasks');
+const { tasksDocument } = require('../../common/local-db/tasks');
 const Task = require('./model');
 
-const getAllTasksByBoardId = async boardId => Promise.resolve(tasksDocument.filter(task => task.boardId === boardId));
+let DB = [...tasksDocument];
 
-const getTaskById = async taskId => Promise.resolve(tasksDocument.find(task => task.id === taskId ));
+const getAllTasksByBoardId = async boardId => Promise.resolve(DB.filter(task => task.boardId === boardId));
+
+const getTaskById = async taskId => Promise.resolve(DB.find(task => task.id === taskId ));
 
 const createTask = async payload => {
   const task = new Task({ ...payload });
-  tasksDocument.push(task);
+  DB.push(task);
   return Promise.resolve(task);
 };
 
 const updateTaskInfo = async (taskId, boardId, payload) => {
-  const indexOfTask = tasksDocument.findIndex(el => el.id === taskId);
+  const indexOfTask = DB.findIndex(el => el.id === taskId);
   if (indexOfTask === -1) return null;
   const updatedTask = {
-    ...tasksDocument[indexOfTask],
+    ...DB[indexOfTask],
     ...payload
   };
-  tasksDocument[indexOfTask] = { ...updatedTask };
+  DB[indexOfTask] = { ...updatedTask };
   return Promise.resolve(updatedTask);
 };
 
 const removeTaskById = async taskId => {
-  const indexOfTask = tasksDocument.findIndex(el => el.id === taskId);
-  const task = tasksDocument[indexOfTask];
+  const indexOfTask = DB.findIndex(el => el.id === taskId);
+  const task = DB[indexOfTask];
   let deleted = null;
   if (indexOfTask && Object.entries(task).length) {
-    deleted = tasksDocument.splice(indexOfTask, 1);
+    deleted = DB.splice(indexOfTask, 1);
   }
-  return !deleted || !deleted?.length
+  const result = !deleted || !deleted?.length
     ? null
     : `User ${task.title} with id ${taskId} was deleted`;
+  return Promise.resolve(result)
 };
 
 const deleteTaskByBoard = async boardId => {
-  const cleared = tasksDocument.filter(task => task.boardId !== boardId);
-  updateTasksDocument(cleared);
-  return Promise.resolve(getAllTasksByBoardId(boardId));
+  DB = DB.filter(task => task.boardId !== boardId);
+  const updated = await getAllTasksByBoardId(boardId);
+
+  return Promise.resolve(updated);
 };
 
 const updateTaskWhenUserDeleted = async userId => {
   const tasks = [];
-  const updated = tasksDocument.map(task => {
+  DB = DB.map(task => {
     const upd = task.userId !== userId
       ? task
       : {
@@ -55,9 +59,7 @@ const updateTaskWhenUserDeleted = async userId => {
     return upd;
     }
   );
-  updateTasksDocument(updated);
-  return tasks;
-  // return tasksDocument.filter(el => el.userId === userId);
+  return Promise.resolve(tasks);
 };
 
 module.exports = {
