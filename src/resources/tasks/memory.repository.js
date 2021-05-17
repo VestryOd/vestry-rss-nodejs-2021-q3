@@ -1,17 +1,6 @@
 const { tasksDocument, updateTasksDocument } = require('../../common/local-db/tasks');
 const Task = require('./model');
 
-// const findTask = taskId => {
-//   const result = {};
-//   tasksDocument.forEach((task, idx) => {
-//     if (task.id === taskId) {
-//       result.data = { ...task };
-//       result.index = idx;
-//     }
-//   });
-//   return result;
-// };
-
 const getAllTasksByBoardId = async boardId => Promise.resolve(tasksDocument.filter(task => task.boardId === boardId));
 
 const getTaskById = async taskId => Promise.resolve(tasksDocument.find(task => task.id === taskId ));
@@ -19,7 +8,7 @@ const getTaskById = async taskId => Promise.resolve(tasksDocument.find(task => t
 const createTask = async payload => {
   const task = new Task({ ...payload });
   tasksDocument.push(task);
-  return Promise.resolve({ ...task });
+  return Promise.resolve(task);
 };
 
 const updateTaskInfo = async (taskId, boardId, payload) => {
@@ -45,23 +34,30 @@ const removeTaskById = async taskId => {
     : `User ${task.title} with id ${taskId} was deleted`;
 };
 
-const deleteTaskByBoard = boardId => {
+const deleteTaskByBoard = async boardId => {
   const cleared = tasksDocument.filter(task => task.boardId !== boardId);
-  updateTasksDocument([...cleared]);
-  return getAllTasksByBoardId(boardId);
+  updateTasksDocument(cleared);
+  return Promise.resolve(getAllTasksByBoardId(boardId));
 };
 
-const updateTaskWhenUserDeleted = userId => {
-  const updated = tasksDocument.map(task =>
-    task.userId !== userId
+const updateTaskWhenUserDeleted = async userId => {
+  const tasks = [];
+  const updated = tasksDocument.map(task => {
+    const upd = task.userId !== userId
       ? task
       : {
         ...task,
         userId: null
-      }
+      };
+    if (upd.userId === null) {
+      tasks.push(upd);
+    }
+    return upd;
+    }
   );
-  updateTasksDocument([...updated]);
-  return tasksDocument.filter(el => el.userId === userId);
+  updateTasksDocument(updated);
+  return tasks;
+  // return tasksDocument.filter(el => el.userId === userId);
 };
 
 module.exports = {

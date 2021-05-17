@@ -61,7 +61,7 @@ router
           })
         );
     }
-    await res.send(200).json(User.toResponse(user));
+    await res.status(200).json(User.toResponse(user));
     return true;
     })
     )

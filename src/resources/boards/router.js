@@ -60,7 +60,7 @@ router
           })
         );
       }
-      await res.type('json').status(200).json(board);
+      await res.status(200).json(board);
       return true;
     })
   )

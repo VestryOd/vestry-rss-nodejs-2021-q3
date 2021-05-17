@@ -19,7 +19,7 @@ const updateUserInfo = async ({ userId, payload }) => {
     ...payload
   };
   usersDocument[indexOfUser] = updatedUser;
-  return Promise.resolve(updatedUser);
+  return Promise.resolve({ ...updatedUser });
 };
 
 const createUser = async payload => {
