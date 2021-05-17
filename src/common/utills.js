@@ -1,5 +1,4 @@
 const catchErrors = fn => async (req, res, next) => {
-  console.log('fn:', fn);
   try {
     return await fn(req, res, next);
   } catch (error) {

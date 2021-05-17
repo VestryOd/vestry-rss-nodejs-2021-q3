@@ -7,18 +7,18 @@ const {
 } = require('./memory.repository');
 const { clearTasksByBoardId } = require('../tasks/service');
 
-const getAll = async() => getAllBoards && await getAllBoards() || null;
+const getAll = async() => getAllBoards();
 
-const getById = async boardId => getBoardById && await getBoardById(boardId) || null;
+const getById = async boardId => getBoardById(boardId);
 
-const create = async payload => createBoard && await createBoard(payload) || null;
+const create = async payload => createBoard(payload);
 
-const update = async (boardId, payload) => updateBoard && await updateBoard(boardId, payload) || null;
+const update = async (boardId, payload) => updateBoard(boardId, payload);
 
 const remove = async boardId => {
   const cleared = await clearTasksByBoardId(boardId);
   if (!cleared.length) {
-    return deleteById && await deleteById(boardId) || null;
+    return deleteById(boardId);
   }
   return true;
 };

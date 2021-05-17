@@ -11,14 +11,14 @@ const getUserById = async userId => {
   return Promise.resolve(result);
 };
 
-const updateUserInfo = async (userId, payload) => {
+const updateUserInfo = async ({ userId, payload }) => {
   const indexOfUser = usersDocument.findIndex(el => el.id === userId);
   if (indexOfUser === -1) return null;
   const updatedUser = {
     ...usersDocument[indexOfUser],
     ...payload
   };
-  usersDocument[indexOfUser] = { ...updatedUser };
+  usersDocument[indexOfUser] = updatedUser;
   return Promise.resolve(updatedUser);
 };
 
