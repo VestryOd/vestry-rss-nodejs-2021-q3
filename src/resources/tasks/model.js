@@ -1,6 +1,16 @@
 const { v4: uuidv4 } = require('uuid');
 
 class Task {
+    /**
+     * @class Task
+     * @param {string} id
+     * @param {string} title
+     * @param {number} order
+     * @param {string} description
+     * @param {string} userId
+     * @param {string} boardId
+     * @param {string} columnId
+     */
     constructor({
         id = uuidv4(),
         title = 'Task title',
