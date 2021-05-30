@@ -1,7 +1,19 @@
-const { v4: uuidv4 } = require('uuid');
+import { v4 as uuidv4 } from 'uuid';
 
+import { IColumn } from '../../interfaces';
 
-class Column {
+type ColumnData = {
+  title: string;
+  order: number;
+};
+
+class Column implements IColumn {
+  id: string;
+
+  title: string;
+
+  order: number;
+
   /**
    * @class Column
    * @param {string} id
@@ -20,11 +32,11 @@ class Column {
  * @param {Array} arr
  * @returns {Column[]}
  */
-function generateColumns(arr) {
-  return !arr.length ? [] : arr.map(col => new Column({...col}));
+function generateColumns(arr: ColumnData[]): IColumn[] {
+  return !arr.length ? [] : arr.map((col) => new Column({ ...col }));
 }
 
-module.exports = {
+export = {
   Column,
   generateColumns,
 };
