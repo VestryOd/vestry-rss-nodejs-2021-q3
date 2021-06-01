@@ -14,8 +14,8 @@ const getAllUsers = async () => Promise.resolve(DB);
  * @param {string} userId
  * @returns {Promise<Object.<User>> | null}
  */
-const getUserById = async userId => {
-  const result = DB.find(user => user.id === userId);
+const getUserById = async (userId) => {
+  const result = DB.find((user) => user.id === userId);
   if (!result) {
     return null;
   }
@@ -29,11 +29,11 @@ const getUserById = async userId => {
  * @returns {Promise<null | Object.<User>>}
  */
 const updateUserInfo = async ({ userId, payload }) => {
-  const indexOfUser = DB.findIndex(el => el.id === userId);
+  const indexOfUser = DB.findIndex((el) => el.id === userId);
   if (indexOfUser === -1) return null;
   const updatedUser = {
     ...DB[indexOfUser],
-    ...payload
+    ...payload,
   };
   DB[indexOfUser] = updatedUser;
   return Promise.resolve({ ...updatedUser });
@@ -44,7 +44,7 @@ const updateUserInfo = async ({ userId, payload }) => {
  * @param {{name: string, login: string, password: string}} payload
  * @returns {Promise<Object.<User>>}
  */
-const createUser = async payload => {
+const createUser = async (payload) => {
   const user = new User(payload);
   DB.push(user);
   return Promise.resolve(User.toResponse(user));
@@ -55,17 +55,14 @@ const createUser = async payload => {
  * @param {string} userId
  * @returns {Promise<null | Object.<User>>}
  */
-const removeUserById = async userId => {
-  const indexOfUser = DB.findIndex(el => el.id === userId);
+const removeUserById = async (userId) => {
+  const indexOfUser = DB.findIndex((el) => el.id === userId);
   const user = DB[indexOfUser];
   let deleted = null;
   if (indexOfUser && Object.keys(user).length) {
     deleted = DB.splice(indexOfUser, 1);
   }
-  return !deleted || !deleted?.length
-    ? null
-    : `User ${user.name} with id ${userId} was deleted`;
+  return !deleted || !deleted?.length ? null : `User ${user.name} with id ${userId} was deleted`;
 };
-
 
 module.exports = { getAllUsers, getUserById, updateUserInfo, createUser, removeUserById };

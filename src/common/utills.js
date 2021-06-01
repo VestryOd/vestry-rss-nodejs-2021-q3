@@ -5,7 +5,7 @@
  * @returns {function(...{Object},{Object},{function})}
  */
 
-const catchErrors = fn => async (req, res, next) => {
+const catchErrors = (fn) => async (req, res, next) => {
   try {
     return await fn(req, res, next);
   } catch (error) {
@@ -29,5 +29,5 @@ class CustomError extends Error {
 
 module.exports = {
   catchErrors,
-  CustomError
+  CustomError,
 };

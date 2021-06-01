@@ -13,7 +13,7 @@ router
       }
       return res.status(200).json(boards);
       // return true;
-    })
+    }),
   )
   .post(
     catchErrors(async (req, res, next) => {
@@ -22,13 +22,13 @@ router
         return next(
           new CustomError({
             status: 400,
-            message: '"Can\'t create, check your request"'
-          })
+            message: '"Can\'t create, check your request"',
+          }),
         );
       }
       return res.status(201).json(board);
       // return true;
-    })
+    }),
   );
 
 router
@@ -40,13 +40,13 @@ router
         return next(
           new CustomError({
             status: 404,
-            message: `Board with id: ${req.params.boardId} not found`
-          })
+            message: `Board with id: ${req.params.boardId} not found`,
+          }),
         );
       }
       return res.status(200).json(board);
       // return true;
-    })
+    }),
   )
   .put(
     catchErrors(async (req, res, next) => {
@@ -56,13 +56,13 @@ router
         return next(
           new CustomError({
             status: 400,
-            message: `Can't update, board with id: ${req.params.boardId} not found`
-          })
+            message: `Can't update, board with id: ${req.params.boardId} not found`,
+          }),
         );
       }
-      return  res.status(200).json(board);
+      return res.status(200).json(board);
       // return true;
-    })
+    }),
   )
   .delete(
     catchErrors(async (req, res, next) => {
@@ -71,13 +71,13 @@ router
         return next(
           new CustomError({
             status: 404,
-            message: `Board with id: ${req.params.boardId} not found`
-          })
+            message: `Board with id: ${req.params.boardId} not found`,
+          }),
         );
       }
       return res.status(200).json(message);
       // return true;
-    })
+    }),
   );
 
 router.use('/:boardId/tasks', taskRouter);

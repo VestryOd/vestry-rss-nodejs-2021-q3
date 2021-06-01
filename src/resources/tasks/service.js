@@ -13,14 +13,14 @@ const {
  * @param {string} boardId
  * @returns {Promise<Object<Task>[]>}
  */
-const getAllByBoardId = async boardId => getAllTasksByBoardId(boardId);
+const getAllByBoardId = async (boardId) => getAllTasksByBoardId(boardId);
 
 /**
  * Return result of execution 'getTaskById' function
  * @param {string} taskId
  * @returns {Promise<undefined|Object<Task>>}
  */
-const getById = async taskId => getTaskById(taskId);
+const getById = async (taskId) => getTaskById(taskId);
 
 /**
  * Return result of execution 'createTask' function
@@ -32,7 +32,7 @@ const getById = async taskId => getTaskById(taskId);
  * }} task
  * @returns {Promise<Task>}
  */
-const create = async task => createTask(task);
+const create = async (task) => createTask(task);
 
 /**
  * Return result of execution 'updateTaskInfo' function
@@ -53,21 +53,21 @@ const update = async (taskId, boardId, payload) => updateTaskInfo(taskId, boardI
  * @param {string} taskId
  * @returns {Promise<null | string>}
  */
-const deleteById = async taskId => removeTaskById(taskId);
+const deleteById = async (taskId) => removeTaskById(taskId);
 
 /**
  * Return result of execution 'removeTaskById' function
  * @param {string} boardId
  * @returns {Promise<Object<Task>[]>}
  */
-const clearTasksByBoardId = async boardId => deleteTaskByBoard(boardId);
+const clearTasksByBoardId = async (boardId) => deleteTaskByBoard(boardId);
 
 /**
  * Return result of execution 'updateTaskWhenUserDeleted' function
  * @param {string} userId
  * @returns {Promise<Task[]|Task[]>}
  */
-const updateTasks = async userId => updateTaskWhenUserDeleted(userId);
+const updateTasks = async (userId) => updateTaskWhenUserDeleted(userId);
 
 module.exports = {
   getAllByBoardId,
@@ -76,5 +76,5 @@ module.exports = {
   update,
   deleteById,
   clearTasksByBoardId,
-  updateTasks
+  updateTasks,
 };

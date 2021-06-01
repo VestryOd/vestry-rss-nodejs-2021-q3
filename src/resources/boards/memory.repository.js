@@ -15,7 +15,7 @@ const getAllBoards = async () => Promise.resolve(DB);
  * @param {string} boardId
  * @returns {{index: number, data: Object.<Board>}}
  */
-const findBoard = boardId => {
+const findBoard = (boardId) => {
   const board = {};
   DB.forEach((el, i) => {
     if (el.id === boardId) {
@@ -31,7 +31,7 @@ const findBoard = boardId => {
  * @param {{id: string, title: string, columns: Array.<Column> | Array}} payload
  * @returns {Promise<{columns: Column[], id: string, title: string}>}
  */
-const createBoard = async payload => {
+const createBoard = async (payload) => {
   const board = new Board({ ...payload });
   DB.push(board);
   return Promise.resolve({ ...board });
@@ -42,8 +42,8 @@ const createBoard = async payload => {
  * @param {string} boardId
  * @returns {Promise<{columns: Column[], id: string, title: string}|null>}
  */
-const getBoardById = async boardId => {
-  const result = DB.find(board => board.id === boardId);
+const getBoardById = async (boardId) => {
+  const result = DB.find((board) => board.id === boardId);
   if (!result) return null;
   return Promise.resolve({ ...result });
 };
@@ -59,7 +59,7 @@ const updateBoard = async (boardId, payload) => {
   if (data && index) {
     DB[index] = {
       ...data,
-      ...payload
+      ...payload,
     };
   }
   return !data && !index ? null : getBoardById(boardId);
@@ -70,8 +70,8 @@ const updateBoard = async (boardId, payload) => {
  * @param {string} boardId
  * @returns {null | Promise<string>}
  */
-const deleteById = async boardId => {
-  const indexOfBoard = DB.findIndex(el => el.id === boardId);
+const deleteById = async (boardId) => {
+  const indexOfBoard = DB.findIndex((el) => el.id === boardId);
   const board = DB[indexOfBoard];
   let deleted = null;
   if (indexOfBoard !== -1 && Object.keys(board).length) {
@@ -86,5 +86,5 @@ module.exports = {
   getBoardById,
   createBoard,
   updateBoard,
-  deleteById
+  deleteById,
 };
