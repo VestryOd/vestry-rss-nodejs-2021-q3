@@ -3,9 +3,15 @@ import { v4 as uuidv4 } from 'uuid';
 import { IUser } from '../../interfaces';
 
 export type UserResponse = {
-  id: string;
-  name: string;
-  login: string;
+  id?: string;
+  name?: string;
+  login?: string;
+};
+
+export type userCreatePayload = {
+  name?: string;
+  login?: string;
+  password?: string;
 };
 
 class User implements IUser {
@@ -17,13 +23,6 @@ class User implements IUser {
 
   password: string;
 
-  /**
-   * @class User
-   * @param {string} id
-   * @param {string} name
-   * @param {string} login
-   * @param {string} password
-   */
   constructor({ id = uuidv4(), name = 'USER', login = 'user', password = 'P@55w0rd' } = {}) {
     this.id = id;
     this.name = name;
@@ -31,11 +30,6 @@ class User implements IUser {
     this.password = password;
   }
 
-  /**
-   * Return users data without password
-   * @param {Object.<User>} user
-   * @returns {{name: string, id: string, login: string}}
-   */
   static toResponse(user: IUser): UserResponse {
     const { id, name, login } = user;
     return { id, name, login };
