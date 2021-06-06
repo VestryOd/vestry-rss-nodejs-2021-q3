@@ -14,12 +14,6 @@ class Column implements IColumn {
 
   order: number;
 
-  /**
-   * @class Column
-   * @param {string} id
-   * @param {string} title
-   * @param {number} order
-   */
   constructor({ id = uuidv4(), title = 'ColumnTitle', order = 0 } = {}) {
     this.id = id;
     this.title = title;
@@ -27,16 +21,8 @@ class Column implements IColumn {
   }
 }
 
-/**
- * Iterate received array and return array of Column instances
- * @param {Array} arr
- * @returns {Column[]}
- */
 function generateColumns(arr: ColumnData[]): IColumn[] {
   return !arr.length ? [] : arr.map((col) => new Column({ ...col }));
 }
 
-export = {
-  Column,
-  generateColumns,
-};
+export { Column, generateColumns };
