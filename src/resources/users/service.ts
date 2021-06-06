@@ -7,16 +7,12 @@ import {
 } from './memory.repository';
 import { userCreatePayload, UserResponse } from './model';
 
-export type updateUser = {
-  userId: string;
-  payload: userCreatePayload;
-};
-
 const { updateTasks } = require('../tasks/service');
 
-const getAll = async () => getAllUsers();
+const getAll = async (): Promise<UserResponse[]> => getAllUsers();
 
-const getById = async (userId: string | undefined) => getUserById(userId);
+const getById = async (userId: string | undefined): Promise<UserResponse | null> =>
+  getUserById(userId);
 
 const update = async ({
   userId,
@@ -33,4 +29,4 @@ const remove = async (userId: string): Promise<string | null> => {
   return removeUserById(userId);
 };
 
-module.exports = { getAll, getById, update, create, remove };
+export default { create, getAll, getById, remove, update };

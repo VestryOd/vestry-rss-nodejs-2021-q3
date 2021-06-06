@@ -1,11 +1,11 @@
 import IUser, { userCreatePayload, UserResponse } from '../resources/users/model';
 
 class CustomError extends Error {
-  status: string;
+  status: number;
 
   message: string;
 
-  constructor({ status, message }: { status: string; message: string }) {
+  constructor({ status, message }: { status: number; message: string }) {
     super();
     this.status = status;
     this.message = message;

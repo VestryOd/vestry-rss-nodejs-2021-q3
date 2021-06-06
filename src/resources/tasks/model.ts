@@ -2,6 +2,15 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { ITask } from '../../interfaces';
 
+export type taskPayload = {
+  title: string;
+  order: number;
+  description: string;
+  userId: string;
+  boardId: string;
+  columnId: string;
+};
+
 class Task implements ITask {
   id: string;
 
@@ -11,21 +20,11 @@ class Task implements ITask {
 
   description: string;
 
-  userId: string;
+  userId: string | null;
 
   boardId: string;
 
   columnId: string;
-  /**
-   * @class Task
-   * @param {string} id
-   * @param {string} title
-   * @param {number} order
-   * @param {string} description
-   * @param {string} userId
-   * @param {string} boardId
-   * @param {string} columnId
-   */
 
   constructor({
     id = uuidv4(),
