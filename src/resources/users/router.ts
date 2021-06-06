@@ -1,4 +1,5 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
+
 const router = express.Router();
 const User = require('./model');
 const usersService = require('./service');
