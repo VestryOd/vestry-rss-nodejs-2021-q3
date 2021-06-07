@@ -19,10 +19,15 @@ const createTask = async (payload: taskPayload): Promise<ITask> => {
 const updateTaskInfo = async (
   taskId: string,
   _boardId: string,
-  payload: Omit<ITask, 'id'>,
+  payload: taskPayload,
 ): Promise<null | ITask> => {
-  DB.map((el) => (el.id !== taskId ? el : { ...el, ...payload }));
-  return Promise.resolve(getTaskById(taskId));
+  const index = DB.findIndex((el) => el.id === taskId);
+  const task = getTaskById(taskId);
+  const updated = { ...task, ...{ id: taskId, ...payload } };
+  if (index && index !== -1) {
+    DB.splice(index, 1, updated);
+  }
+  return Promise.resolve(updated);
 };
 
 const removeTaskById = async (taskId: string): Promise<string | null> => {

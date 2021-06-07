@@ -1,3 +1,4 @@
+import taskService from '../tasks/service';
 import {
   createUser,
   getAllUsers,
@@ -6,8 +7,6 @@ import {
   updateUserInfo,
 } from './memory.repository';
 import { userCreatePayload, UserResponse } from './model';
-
-const { updateTasks } = require('../tasks/service');
 
 const getAll = async (): Promise<UserResponse[]> => getAllUsers();
 
@@ -25,7 +24,7 @@ const update = async ({
 const create = async (payload: userCreatePayload): Promise<UserResponse> => createUser(payload);
 
 const remove = async (userId: string): Promise<string | null> => {
-  await updateTasks(userId);
+  await taskService.updateTasks(userId);
   return removeUserById(userId);
 };
 

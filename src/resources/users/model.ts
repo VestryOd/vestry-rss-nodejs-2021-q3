@@ -9,9 +9,9 @@ export type UserResponse = {
 };
 
 export type userCreatePayload = {
-  name?: string;
-  login?: string;
-  password?: string;
+  name: string;
+  login: string;
+  password: string;
 };
 
 class User implements IUser {

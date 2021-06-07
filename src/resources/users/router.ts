@@ -1,9 +1,9 @@
 import express, { NextFunction, Request, Response } from 'express';
 
+import { CustomError } from '../../common/utills';
+import usersService from './service';
+
 const router = express.Router();
-const User = require('./model');
-const usersService = require('./service');
-const { CustomError } = require('../../common/utills');
 
 router
   .route('/')
@@ -11,7 +11,7 @@ router
     try {
       const users = await usersService.getAll();
       if (!users) return next(new CustomError({ status: 400, message: 'Bad request' }));
-      return res.status(200).json(users.map(User.toResponse));
+      return res.status(200).json(users);
     } catch (error) {
       return next(error);
     }
@@ -27,7 +27,7 @@ router
           }),
         );
       }
-      return res.status(201).json(User.toResponse(user));
+      return res.status(201).json(user);
     } catch (error) {
       return next(error);
     }
@@ -56,10 +56,12 @@ router
   .put(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { userId } = req.params;
-      const user = await usersService.update({
-        userId,
-        payload: { ...req.body },
-      });
+      const user =
+        userId &&
+        (await usersService.update({
+          userId,
+          payload: { ...req.body },
+        }));
       if (!(user && Object.entries(user).length)) {
         return next(
           new CustomError({
@@ -76,7 +78,7 @@ router
   .delete(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { userId } = req?.params;
-      const message = await usersService.remove(userId);
+      const message = userId && (await usersService.remove(userId));
       if (!message) {
         return next(
           new CustomError({

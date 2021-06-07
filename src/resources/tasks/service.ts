@@ -19,7 +19,7 @@ const create = async (task: taskPayload): Promise<ITask> => createTask(task);
 const update = async (
   taskId: string,
   boardId: string,
-  payload: Omit<ITask, 'id'>,
+  payload: taskPayload,
 ): Promise<ITask | null> => updateTaskInfo(taskId, boardId, payload);
 
 const deleteById = async (taskId: string): Promise<string | null> => removeTaskById(taskId);
