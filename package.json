@@ -44,18 +44,25 @@
     ]
   },
   "dependencies": {
+    "@types/standard-http-error": "^2.0.1",
     "cross-env": "7.0.3",
     "dotenv": "9.0.0",
     "express": "4.17.1",
+    "express-winston": "^4.1.0",
+    "http-errors": "^1.8.0",
+    "http-status-codes": "^2.1.4",
     "swagger-ui-express": "4.1.6",
     "uuid": "8.3.2",
+    "winston": "^3.3.3",
     "yamljs": "0.3.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.12",
+    "@types/http-errors": "^1.8.0",
     "@types/node": "^15.6.1",
     "@types/swagger-ui-express": "^4.1.2",
     "@types/uuid": "^8.3.0",
+    "@types/winston": "^2.4.4",
     "@types/yamljs": "^0.2.31",
     "@typescript-eslint/eslint-plugin": "^4.25.0",
     "@typescript-eslint/parser": "^4.25.0",
