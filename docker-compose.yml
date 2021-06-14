@@ -1,0 +1,38 @@
+version: '3'
+services:
+  node:
+    build: .
+    ports:
+    - ${PORT}:${PORT}
+    container_name: vestryod-docker-node
+    image: vestry/vestryod-docker-node
+    networks:
+      - vestry-net
+    depends_on:
+      - postgres
+    environment:
+      - PORT=${PORT}
+    restart: always
+    volumes:
+      - ./logs:/app/logs
+      - ./src:/app/src
+  postgres:
+    build: ./database
+    ports:
+    - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    container_name: vestryod-docker-postgres
+    image: vestry/vestryod-docker-postgres
+    networks:
+      - vestry-net
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+networks:
+  vestry-net:
+    driver: bridge
+volumes:
+  pgdata:
