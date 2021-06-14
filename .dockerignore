@@ -1,0 +1,9 @@
+modules
+modules/*
+modules*
+*/modules
+**/modules
+node_mode
+build
+.git
+out

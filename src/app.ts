@@ -40,8 +40,4 @@ process.on('unhandledRejection', (error: Error) => {
   onUnhandledPromiseRejection(error);
 });
 
-// throw Error('oops');
-
-// Promise.reject(new Error('Oops!'));
-
 export default app;
