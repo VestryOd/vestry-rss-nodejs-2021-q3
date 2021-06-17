@@ -27,6 +27,29 @@ After starting the app on port (4000 as default) you can open
 in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
 For more information about OpenAPI/Swagger please visit https://swagger.io/.
 
+### Running application using Docker
+
+```
+docker compose up
+```
+An alternative pull docker image from [docker hub postgres](https://hub.docker.com/repository/docker/vestry/vestryod-docker-postgres)
+and [docker hub node](https://hub.docker.com/repository/docker/vestry/vestryod-docker-node)
+Or just pull:
+```
+docker pull vestry/vestryod-docker-postgres:v1.0.0
+docker pull vestry/vestryod-docker-node:v1.0.0
+```
+Example of `.env` file:
+
+```
+NODE_ENV=development
+PORT=
+POSTGRES_PORT=
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+POSTGRES_DB=
+```
+
 ## Testing
 
 After application running open new terminal and enter:
